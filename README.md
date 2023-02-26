@@ -47,10 +47,15 @@ Also, as I learn from [this page](http://openseadragon.github.io/docs/), perform
 (1) create an Angular app and install the required **packages**:
 
 ```bash
-npm i @recogito/annotorious @recogito/annotorious-openseadragon
-npm i openseadragon
+npm i @recogito/annotorious @recogito/annotorious-openseadragon openseadragon
 npm i @types/openseadragon --save-dev
 ```
+
+Also add a types.ts file to your src folder with this content:
+
+declare module "@recogito/annotorious";
+
+and then import it where required.
 
 (2) add the required Annotorious **CSS** to `angular.json` under `projects/architect/build/options/styles`:
 
@@ -63,7 +68,7 @@ npm i @types/openseadragon --save-dev
 
 >According to the documentation, this is required at least when using OSD in fullscreen mode.
 
-(3) add the directive.
+(3) add the [directive](projects/sd-img-annotator/src/lib/directives/sd-img-annotator.directive.ts).
 
 (4) add a sample image in the demo app `assets`, and a page using the directive like this:
 
