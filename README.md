@@ -2,6 +2,8 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.1.6.
 
+This is a repro project following the discussion at <https://github.com/recogito/annotorious/issues/278>.
+
 I am trying to use [Annotorious](https://recogito.github.io/annotorious/) with its [plugin](https://recogito.github.io/annotorious/getting-started/osd-plugin/) for [OpenSeadragon](http://openseadragon.github.io/) in Angular 15.
 
 When running my demo app, I get errors when creating the OpenSeadragon viewer, so probably I'm just missing some basic setup.
