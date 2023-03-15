@@ -27,6 +27,20 @@ core.mjs:8506 ERROR TypeError: Cannot read properties of undefined (reading 'dis
 
 Additionally, I get a number of 404 as apparently the plugin is trying to load some UI image resources like `GET http://localhost:4200/images/zoomin_rest.png 404 (Not Found)` etc.
 
+## Updates
+
+Following the suggestions posted [here](https://github.com/recogito/annotorious/issues/278), I changed the imports in the directive. This removes the above issues. Now I get a single error and a couple of warnings:
+
+```txt
+TypeError: _recogito_annotorious_openseadragon__WEBPACK_IMPORTED_MODULE_0__ is not a constructor
+    at SdImgAnnotatorDirective.ngAfterViewInit (sd-img-annotator.directive.ts:154:17)
+
+Viewer.buttons is deprecated; Please use Viewer.buttonGroup
+get buttons @ openseadragon.js:8076
+
+sd-img-annotator.directive.ts:143 Tile constructor needs 'cacheKey' variable: creation tile cache in Tile class is deprecated. TileSource.prototype.getTileHashKey will be used.
+```
+
 ## Procedure
 
 To start simple, I'd like to create an essential directive, whose only purpose is using Annotorious Seadragon to annotate an image and get an event whenever an annotation is changed.
@@ -53,11 +67,18 @@ npm i @recogito/annotorious @recogito/annotorious-openseadragon openseadragon
 npm i @types/openseadragon --save-dev
 ```
 
-Also add a types.ts file to your src folder with this content:
+Also add a `types.ts` file to your `src` folder with this content:
 
-declare module "@recogito/annotorious";
+```ts
+declare module "@recogito/annotorious-openseadragon";
+```
 
-and then import it where required.
+and then import it where required. Alternatively, add a comment just before the import statement:
+
+```ts
+// @ts-ignore
+import * as OSDAnnotorious from '@recogito/annotorious-openseadragon';
+```
 
 (2) add the required Annotorious **CSS** to `angular.json` under `projects/architect/build/options/styles`:
 
