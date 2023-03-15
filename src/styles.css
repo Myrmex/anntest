@@ -3,3 +3,7 @@ body {
   color: white;
   background-color: #202020;
 }
+
+.openseadragon-container {
+	min-height: 500px;
+}

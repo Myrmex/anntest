@@ -1,4 +1,4 @@
-import { Directive, Input, Output, EventEmitter, NgZone } from '@angular/core';
+import { Directive, Input, Output, EventEmitter, NgZone, HostBinding } from '@angular/core';
 
 // @ts-ignore
 import * as OSDAnnotorious from '@recogito/annotorious-openseadragon';
@@ -64,6 +64,8 @@ export class SdImgAnnotatorDirective {
   @Input()
   public source: string;
 
+	@HostBinding('id')
+	private readonly id = "osd";
   /**
    * The initial configuration for the annotator. Note that the image property
    * will be overridden with the img being decorated by this directive.
@@ -139,6 +141,7 @@ export class SdImgAnnotatorDirective {
     //   http://openseadragon.github.io/examples/tilesource-image/
     // we also have better running outside Angular zone:
     //   http://openseadragon.github.io/docs/
+		
     const viewer = this._ngZone.runOutsideAngular(() => {
       return new Viewer({
         id: 'osd',
@@ -151,7 +154,7 @@ export class SdImgAnnotatorDirective {
     });
 
     // this._ann = new Annotorious(viewer, cfg);
-    this._ann = new OSDAnnotorious(viewer, cfg);
+    this._ann = OSDAnnotorious(viewer, cfg);
 
     // initial annotations
     if (this.annotations?.length) {
