@@ -1,4 +1,4 @@
-import { Directive, Input, Output, EventEmitter, NgZone, HostBinding, ElementRef } from '@angular/core';
+import { Directive, Input, Output, EventEmitter, NgZone, ElementRef } from '@angular/core';
 
 // @ts-ignore
 import * as OSDAnnotorious from '@recogito/annotorious-openseadragon';
