@@ -1,7 +1,8 @@
 import { Directive, Input, Output, EventEmitter, NgZone } from '@angular/core';
 
-import { Annotorious } from '@recogito/annotorious';
-import * as OpenSeadragon from 'openseadragon';
+// @ts-ignore
+import * as OSDAnnotorious from '@recogito/annotorious-openseadragon';
+import { Viewer } from 'openseadragon';
 
 // https://recogito.github.io/annotorious/api-docs/annotorious
 
@@ -139,7 +140,7 @@ export class SdImgAnnotatorDirective {
     // we also have better running outside Angular zone:
     //   http://openseadragon.github.io/docs/
     const viewer = this._ngZone.runOutsideAngular(() => {
-      OpenSeadragon({
+      return new Viewer({
         id: 'osd',
         tileSources: {
           type: 'image',
@@ -148,15 +149,9 @@ export class SdImgAnnotatorDirective {
         prefixUrl: 'http://openseadragon.github.io/openseadragon/images/',
       });
     });
-    // const viewer = OpenSeadragon({
-    //   id: 'osd',
-    //   tileSources: {
-    //     type: 'image',
-    //     url: this.source,
-    //   },
-    // });
 
-    this._ann = new Annotorious(viewer, cfg);
+    // this._ann = new Annotorious(viewer, cfg);
+    this._ann = new OSDAnnotorious(viewer, cfg);
 
     // initial annotations
     if (this.annotations?.length) {
