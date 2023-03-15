@@ -141,7 +141,6 @@ export class SdImgAnnotatorDirective {
     //   http://openseadragon.github.io/examples/tilesource-image/
     // we also have better running outside Angular zone:
     //   http://openseadragon.github.io/docs/
-		
     const viewer = this._ngZone.runOutsideAngular(() => {
       return new Viewer({
         id: 'osd',
