@@ -1,4 +1,4 @@
-import { Directive, Input, Output, EventEmitter, NgZone, HostBinding } from '@angular/core';
+import { Directive, Input, Output, EventEmitter, NgZone, HostBinding, ElementRef } from '@angular/core';
 
 // @ts-ignore
 import * as OSDAnnotorious from '@recogito/annotorious-openseadragon';
@@ -64,8 +64,6 @@ export class SdImgAnnotatorDirective {
   @Input()
   public source: string;
 
-	@HostBinding('id')
-	private readonly id = "osd";
   /**
    * The initial configuration for the annotator. Note that the image property
    * will be overridden with the img being decorated by this directive.
@@ -125,7 +123,7 @@ export class SdImgAnnotatorDirective {
   @Output()
   public mouseLeaveAnnotation: EventEmitter<AnnotationEvent>;
 
-  constructor(private _ngZone: NgZone) {
+  constructor(private _ngZone: NgZone, private el: ElementRef) {
     this._tool = 'rect';
     this.source = '';
     this.createAnnotation = new EventEmitter<AnnotationEvent>();
@@ -143,10 +141,11 @@ export class SdImgAnnotatorDirective {
     //   http://openseadragon.github.io/docs/
     const viewer = this._ngZone.runOutsideAngular(() => {
       return new Viewer({
-        id: 'osd',
+				element: this.el.nativeElement,
         tileSources: {
           type: 'image',
-          url: this.source,
+          //url: this.source,
+					url: 'http://dl.fujifilm-x.com/global/products/cameras/gfx100s/sample-images/gfx100s_sample_04_oulq.jpg'
         },
         prefixUrl: 'http://openseadragon.github.io/openseadragon/images/',
       });
