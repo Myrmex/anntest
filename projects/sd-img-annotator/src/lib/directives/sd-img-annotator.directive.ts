@@ -144,8 +144,7 @@ export class SdImgAnnotatorDirective {
 				element: this.el.nativeElement,
         tileSources: {
           type: 'image',
-          //url: this.source,
-					url: 'http://dl.fujifilm-x.com/global/products/cameras/gfx100s/sample-images/gfx100s_sample_04_oulq.jpg'
+          url: this.source
         },
         prefixUrl: 'http://openseadragon.github.io/openseadragon/images/',
       });
