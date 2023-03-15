@@ -1,4 +1,4 @@
-import { Directive, Input, Output, EventEmitter, NgZone } from '@angular/core';
+import { Directive, Input, Output, EventEmitter, NgZone, ElementRef } from '@angular/core';
 
 // @ts-ignore
 import * as OSDAnnotorious from '@recogito/annotorious-openseadragon';
@@ -123,7 +123,7 @@ export class SdImgAnnotatorDirective {
   @Output()
   public mouseLeaveAnnotation: EventEmitter<AnnotationEvent>;
 
-  constructor(private _ngZone: NgZone) {
+  constructor(private _ngZone: NgZone, private el: ElementRef) {
     this._tool = 'rect';
     this.source = '';
     this.createAnnotation = new EventEmitter<AnnotationEvent>();
@@ -141,17 +141,17 @@ export class SdImgAnnotatorDirective {
     //   http://openseadragon.github.io/docs/
     const viewer = this._ngZone.runOutsideAngular(() => {
       return new Viewer({
-        id: 'osd',
+				element: this.el.nativeElement,
         tileSources: {
           type: 'image',
-          url: this.source,
+          url: this.source
         },
         prefixUrl: 'http://openseadragon.github.io/openseadragon/images/',
       });
     });
 
     // this._ann = new Annotorious(viewer, cfg);
-    this._ann = new OSDAnnotorious(viewer, cfg);
+    this._ann = OSDAnnotorious(viewer, cfg);
 
     // initial annotations
     if (this.annotations?.length) {
